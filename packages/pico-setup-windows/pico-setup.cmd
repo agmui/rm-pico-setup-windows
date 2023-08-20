@@ -5,9 +5,8 @@ git submodule update --init --recommend-shallow
 cd rm_pico_dev
 git submodule update --init --recommend-shallow 
 cd lib/pico-sdk/
-@REM set current dir to path
-set PATH=%PICO_SDK_PATH%;%CD% 
 git submodule update --init --recommend-shallow 
+setx PICO_SDK_PATH %CD%
 
 cd ../../../
 start "" cmd /b /c code "./" && exit 0
