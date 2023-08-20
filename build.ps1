@@ -203,9 +203,9 @@ if (-not $SkipDownload) {
   msys "pacboy -S --noconfirm --needed cmake:p ninja:p toolchain:p libusb:p hidapi:p"
 }
 
-if (-not (Test-Path ".\build\openocd-install\mingw$bitness")) {
-  msys "cd build && ../packages/openocd/build-openocd.sh $bitness $mingw_arch"
-}
+# if (-not (Test-Path ".\build\openocd-install\mingw$bitness")) {
+#   msys "cd build && ../packages/openocd/build-openocd.sh $bitness $mingw_arch"
+# }
 
 if (-not (Test-Path ".\build\picotool-install\mingw$bitness")) {
   msys "cd build && ../packages/picotool/build-picotool.sh $bitness $mingw_arch"
@@ -216,9 +216,9 @@ $ExecutionContext.InvokeCommand.ExpandString($template) | Set-Content ".\build\p
 
 exec { .\build\pandoc\pandoc.exe --from gfm --to gfm --output .\build\ReadMe.txt .\docs\tutorial.md }
 
-mkdirp .\build\pico-examples\.vscode
-Copy-Item .\packages\pico-examples\ide\vscode\*.json .\build\pico-examples\.vscode\ -Force
-exec {  tar -a -cf "build\pico-examples.zip" -C "build" "pico-examples" "pico-extras" "pico-playground" }
+# mkdirp .\build\pico-examples\.vscode
+# Copy-Item .\packages\pico-examples\ide\vscode\*.json .\build\pico-examples\.vscode\ -Force
+# exec {  tar -a -cf "build\pico-examples.zip" -C "build" "pico-examples" "pico-extras" "pico-playground" }
 
 $endl = '$\r$\n'
 
@@ -520,14 +520,14 @@ LangString DESC_Sec$($_.shortName) `${LANG_ENGLISH} "$($_.name)"
 "@
 })
 
-Section "-OpenOCD" SecOpenOCD
+; Section "-OpenOCD" SecOpenOCD
 
-  SetOutPath "`$INSTDIR\openocd"
-  File "build\openocd-install\mingw$bitness\bin\*.*"
-  SetOutPath "`$INSTDIR\openocd\scripts"
-  File /r "build\openocd-install\mingw$bitness\share\openocd\scripts\*.*"
+;   SetOutPath "`$INSTDIR\openocd"
+;   File "build\openocd-install\mingw$bitness\bin\*.*"
+;   SetOutPath "`$INSTDIR\openocd\scripts"
+;   File /r "build\openocd-install\mingw$bitness\share\openocd\scripts\*.*"
 
-SectionEnd
+; SectionEnd
 
 !include "packages\pico-setup-windows\VSCodeUtils.nsh"
 
@@ -551,8 +551,8 @@ SectionEnd
 
 Section "-Pico environment" SecPico
 
-  SetOutPath "`$INSTDIR\pico-sdk"
-  File /r "build\pico-sdk\*.*"
+  ; SetOutPath "`$INSTDIR\pico-sdk"
+  ; File /r "build\pico-sdk\*.*"
 
   SetOutPath "`$INSTDIR\pico-sdk-tools"
   File "build\pico-sdk-tools\mingw$bitness\*.*"
@@ -562,7 +562,7 @@ Section "-Pico environment" SecPico
   File "build\picotool-install\mingw$bitness\*.*"
 
   SetOutPath "`$INSTDIR"
-  File "build\pico-examples.zip"
+  ; File "build\pico-examples.zip"
   WriteINIStr "`$INSTDIR\version.ini" "pico-setup-windows" "PICO_SDK_VERSION" "$sdkVersion"
   WriteINIStr "`$INSTDIR\version.ini" "pico-setup-windows" "PICO_INSTALL_PATH" "`$INSTDIR"
   WriteINIStr "`$INSTDIR\version.ini" "pico-setup-windows" "PICO_REG_KEY" "`${PICO_REG_KEY}"
@@ -653,7 +653,7 @@ $env:__COMPAT_LAYER = ""
 
 # Sign files before packaging up the installer
 sign "build\uninstall-$suffix.exe",
-"build\openocd-install\mingw$bitness\bin\openocd.exe",
+# "build\openocd-install\mingw$bitness\bin\openocd.exe",
 "build\pico-sdk-tools\mingw$bitness\elf2uf2.exe",
 "build\pico-sdk-tools\mingw$bitness\pioasm.exe",
 "build\picotool-install\mingw$bitness\picotool.exe"
@@ -666,15 +666,15 @@ sign $binfile
 
 # Package OpenOCD separately as well
 
-$version = (cmd /c ".\build\openocd-install\mingw$bitness\bin\openocd.exe" --version '2>&1')[0]
-if (-not ($version -match 'Open On-Chip Debugger (?<version>[a-zA-Z0-9\.\-+]+) \((?<timestamp>[0-9\-:]+)\)')) {
-  Write-Error 'Could not determine openocd version'
-}
+# $version = (cmd /c ".\build\openocd-install\mingw$bitness\bin\openocd.exe" --version '2>&1')[0]
+# if (-not ($version -match 'Open On-Chip Debugger (?<version>[a-zA-Z0-9\.\-+]+) \((?<timestamp>[0-9\-:]+)\)')) {
+#   Write-Error 'Could not determine openocd version'
+# }
 
-$filename = 'openocd-{0}-{1}-{2}.zip' -f
-  ($Matches.version -replace '-dirty$', ''),
-  ($Matches.timestamp -replace '[:-]', ''),
-  $suffix
+# $filename = 'openocd-{0}-{1}-{2}.zip' -f
+#   ($Matches.version -replace '-dirty$', ''),
+#   ($Matches.timestamp -replace '[:-]', ''),
+#   $suffix
 
-Write-Host "Saving OpenOCD package to $filename"
-exec { tar -a -cf "bin\$filename" -C "build\openocd-install\mingw$bitness\bin" * -C "..\share\openocd" "scripts" }
+# Write-Host "Saving OpenOCD package to $filename"
+# exec { tar -a -cf "bin\$filename" -C "build\openocd-install\mingw$bitness\bin" * -C "..\share\openocd" "scripts" }
