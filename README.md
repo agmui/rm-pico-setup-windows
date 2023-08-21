@@ -49,7 +49,9 @@ The built installers will be saved to the `bin` directory.
 `x64-standalone.json` has all the git repos and links to where build will 
 download from. Then as a masive string build will make a `.nsi` file and
 compile it to the `.exe` you see in the `\bin` directory. Then when running
-the `.exe` it will download all tools lised in [included software](#included-software) and then ask to run `pico-setup.cmd` to clone and update
+the `.exe` it will download all tools lised in [included software](#included-software) and then ask to run 
+[pico-setup.cmd](https://github.com/agmui/rm-pico-setup-windows/blob/master/packages/pico-setup-windows/pico-setup.cmd)
+ to clone and update
 the [sample_rm_pico_app](https://github.com/agmui/sample_rm_pico_app) repo.
 
 if you just need to change the nsi file it is faster to just change the file 
