@@ -1,5 +1,7 @@
 # Pico setup for Windows
 
+This is a forked repo of the pico set for windows. It is ment to set up the pi pico for robomasters so some repos and dependenceys wont be installed.
+
 [Download the latest release](https://github.com/raspberrypi/pico-setup-windows/releases/latest/download/pico-setup-windows-x64-standalone.exe)
 
 This project aims to create an easy-to-use installer to get started on Windows (using the C/C++ SDK) with [Raspberry Pi Pico](https://www.raspberrypi.com/products/raspberry-pi-pico/) and other RP2040-based boards. It is inspired by, and is roughly equivalent to, the [pico-setup](https://github.com/raspberrypi/pico-setup) project for Linux systems.
@@ -16,7 +18,7 @@ The rest of this README document is about developing the installer itself. If yo
 - [Python 3.9](https://www.python.org/downloads/windows/)
 - [Git for Windows](https://git-scm.com/download/win)
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [OpenOCD](https://github.com/openocd-org/openocd/)
+- ~~[OpenOCD](https://github.com/openocd-org/openocd/)~~ no need cuz of [this](https://github.com/essele/pico_debug/releases/tag/v0.3)
 
 # Building
 
