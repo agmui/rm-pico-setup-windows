@@ -147,7 +147,7 @@ if (-not ($sdkVersion -match $versionRegEx)) {
 }
 $sdkVersionClean = $Matches[0]
 $sdkVersionCommit = (git -C .\build\pico-sdk rev-parse --short HEAD)
-$product = "Raspberry Pi Pico SDK v$sdkVersion"
+$product = "RHIT Raspberry Pi Pico Installer"
 $productDir = "Raspberry Pi\Pico SDK v$sdkVersion"
 $company = "Raspberry Pi Ltd"
 
