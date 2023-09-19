@@ -1,29 +1,16 @@
-echo running pico-setup
-git clone https://github.com/agmui/sample_rm_pico_app.git
-cd sample_rm_pico_app
-git submodule update --init --recommend-shallow 
-cd rm_pico_dev
-git submodule update --init --recommend-shallow 
-cd lib/pico-sdk/
-git submodule update --init --recommend-shallow 
-setx PICO_SDK_PATH %CD%
+@if not defined _echo echo off
 
-cd ../../../
-start "" cmd /b /c code "./" && exit 0
-
-@REM @if not defined _echo echo off
-
-@REM set interactive=%~2
+set interactive=%~2
 
 @REM mkdir "%~1"
 @REM echo Copying pico-examples...
 @REM powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive """%~dp0pico-examples.zip""" -DestinationPath """%~1""" -Force" || exit /b 1
 
-@REM call "%~dp0pico-env.cmd" "%~1" || exit /b 1
-@REM setlocal enabledelayedexpansion
+call "%~dp0pico-env.cmd" "%~1" || exit /b 1
+setlocal enabledelayedexpansion
 
-@REM rem This is mostly a port of pico-setup
-@REM rem https://github.com/raspberrypi/pico-setup/blob/master/pico_setup.sh
+rem This is mostly a port of pico-setup
+rem https://github.com/raspberrypi/pico-setup/blob/master/pico_setup.sh
 
 @REM set "GITHUB_PREFIX=https://github.com/raspberrypi/"
 @REM set "GITHUB_SUFFIX=.git"
@@ -71,3 +58,16 @@ start "" cmd /b /c code "./" && exit 0
 @REM )
 
 @REM popd
+
+echo running pico-setup
+git clone https://github.com/agmui/sample_rm_pico_app.git
+cd sample_rm_pico_app
+git submodule update --init --recommend-shallow 
+cd rm_pico_dev
+git submodule update --init --recommend-shallow 
+cd lib/pico-sdk/
+git submodule update --init --recommend-shallow 
+setx PICO_SDK_PATH %CD%
+
+cd ../../../
+start "" cmd /b /c code "%PICO_REPOS_PATH%" && exit 0

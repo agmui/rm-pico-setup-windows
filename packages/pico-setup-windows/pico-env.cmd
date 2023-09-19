@@ -54,18 +54,18 @@ if "%~1" neq "" (
   reg add "HKCU\%PICO_REG_KEY%" /v ReposPath /d "%~1" /f
 )
 
-set "PICO_SDK_PATH=%PICO_INSTALL_PATH%\pico-sdk"
+@REM set "PICO_SDK_PATH=%PICO_INSTALL_PATH%\pico-sdk"
 
 call :SetEnvFromRegistry repos
 
-for %%i in (examples extras playground) do (
-  rem Environment variables in Windows aren't case-sensitive, so we don't need
-  rem to bother with uppercasing the env var name.
-  if exist "%PICO_REPOS_PATH%\pico-%%i" (
-    echo PICO_%%i_PATH=%PICO_REPOS_PATH%\pico-%%i
-    set "PICO_%%i_PATH=%PICO_REPOS_PATH%\pico-%%i"
-  )
-)
+@REM for %%i in (examples extras playground) do (
+@REM   rem Environment variables in Windows aren't case-sensitive, so we don't need
+@REM   rem to bother with uppercasing the env var name.
+@REM   if exist "%PICO_REPOS_PATH%\pico-%%i" (
+@REM     echo PICO_%%i_PATH=%PICO_REPOS_PATH%\pico-%%i
+@REM     set "PICO_%%i_PATH=%PICO_REPOS_PATH%\pico-%%i"
+@REM   )
+@REM )
 
 if exist "%PICO_INSTALL_PATH%\openocd" (
   echo OPENOCD_SCRIPTS=%PICO_INSTALL_PATH%\openocd\scripts
