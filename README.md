@@ -35,14 +35,24 @@ Compiling OpenOCD and other tools (picotool, pioasm, elf2uf2) requires an instal
 
 It is highly recommended to use a dedicated copy of MSYS2 for this build.
 
+## Powershell Comands
+To enable running power shell: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+Check powershell version: `$PSVersionTable.PSVersion`
+
 To build:
 
 ```powershell
-.\build.ps1 .\config\x64-standalone.json -MSYS2Path ~\Downloads\msys64
+.\build.ps1 .\config\x64-standalone.json -MSYS2Path ~\Downloads\msys64 -SkipSigning
 ```
 
 The built installers will be saved to the `bin` directory.
 
+### .\build.ps1 flags
+- ConfigFile: (first arg and flag not needed) path to .\config\x64-standalone.json file
+- MSYS2Path: path to msys64
+- SkipSigning: Skip signing exe step(recomend) turn on if you dont know what signing is
+- Compression: zlib, bzip2, lzma(default)
+- BuildType: default system
 
 ### Break down
 `build.ps1` will download and build all .exe files like picotool, git, etc.
